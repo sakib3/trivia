@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Test
 {
-    public class GameCategoryTest
+    public partial class GameCategoryTest
     {
         [Fact]
         public void ShowCategoryPop()
@@ -31,6 +31,7 @@ namespace Test
                                          "The category is Pop\n" +
                                          $"Pop Question 0\n", sw.ToString());
                 }
+
                 Thread.Sleep(100);
             }
         }
@@ -57,6 +58,7 @@ namespace Test
                                          "The category is Science\n" +
                                          $"Science Question 0\n", sw.ToString());
                 }
+
                 Thread.Sleep(100);
             }
         }
@@ -83,6 +85,7 @@ namespace Test
                                          "The category is Sports\n" +
                                          $"Sports Question 0\n", sw.ToString());
                 }
+
                 Thread.Sleep(100);
             }
         }
@@ -109,6 +112,7 @@ namespace Test
                                          "The category is Rock\n" +
                                          $"Rock Question 0\n", sw.ToString());
                 }
+
                 Thread.Sleep(100);
             }
         }

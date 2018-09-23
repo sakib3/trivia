@@ -11,6 +11,7 @@
         <e p="GameTest" t="Include">
           <e p="GameCategoryTest.cs" t="Include" />
           <e p="PlayerInfoTest.cs" t="Include" />
+          <e p="PlayerQuestionAnswerTest.cs" t="Include" />
           <e p="Test.csproj.DotSettings" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
