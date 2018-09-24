@@ -1,6 +1,6 @@
 ﻿namespace UglyTrivia
 {
-    public interface IWriter
+    public interface Iwriter
     {
         void WriteLine(string msg);
     }

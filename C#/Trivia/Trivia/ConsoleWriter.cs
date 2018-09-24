@@ -2,7 +2,7 @@
 
 namespace UglyTrivia
 {
-    public class ConsoleWriter : IWriter
+    public class ConsoleWriter: Iwriter
     {
         public void WriteLine(string msg)
         {
