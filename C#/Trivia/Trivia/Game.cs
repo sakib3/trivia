@@ -102,20 +102,29 @@ namespace UglyTrivia
 
         private void askQuestion()
         {
-            if (currentCategory() == "Pop")
-                DoSomethingForAskingQuestion(popQuestions);
-
-            if (currentCategory() == "Science")
-                DoSomethingForAskingQuestion(scienceQuestions);
-
-            if (currentCategory() == "Sports")
-                DoSomethingForAskingQuestion(sportsQuestions);
-
-            if (currentCategory() == "Rock")
-                DoSomethingForAskingQuestion(rockQuestions);
+            var questions = getQuestionsForCurrentCategory();
+            if (questions != null)
+                ActionForAskingQuestion(questions);
         }
 
-        private void DoSomethingForAskingQuestion(LinkedList<string> questions)
+        private LinkedList<string> getQuestionsForCurrentCategory()
+        {
+            if (currentCategory() == "Pop")
+                return popQuestions;
+
+            if (currentCategory() == "Science")
+                return scienceQuestions;
+
+            if (currentCategory() == "Sports")
+                return sportsQuestions;
+
+            if (currentCategory() == "Rock")
+                return rockQuestions;
+
+            return null;
+        }
+
+        private void ActionForAskingQuestion(LinkedList<string> questions)
         {
             Console.WriteLine(questions.First());
             questions.RemoveFirst();
