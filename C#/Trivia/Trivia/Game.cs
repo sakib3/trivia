@@ -152,7 +152,7 @@ namespace UglyTrivia
             {
                 if (isGettingOutOfPenaltyBox)
                 {
-                    Console.WriteLine("Answer was correct!!!!");
+                    Console.WriteLine(getMessageCorrectAnswer());
                     purses[currentPlayer]++;
                     Console.WriteLine(players[currentPlayer]
                             + " now has "
@@ -178,7 +178,7 @@ namespace UglyTrivia
             else
             {
 
-                Console.WriteLine("Answer was corrent!!!!");
+                Console.WriteLine(getMessageCorrectAnswer());
                 purses[currentPlayer]++;
                 Console.WriteLine(players[currentPlayer]
                         + " now has "
@@ -191,6 +191,11 @@ namespace UglyTrivia
 
                 return winner;
             }
+        }
+
+        public string getMessageCorrectAnswer()
+        {
+            return "Answer was correct!!!!";
         }
 
         public bool wrongAnswer()

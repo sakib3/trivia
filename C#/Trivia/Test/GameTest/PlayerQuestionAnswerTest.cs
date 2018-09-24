@@ -19,7 +19,7 @@ namespace Test
 
                 game.wasCorrectlyAnswered();
 
-                Assert.Equal<string>("Answer was corrent!!!!\n" +
+                Assert.Equal<string>("Answer was correct!!!!\n" +
                                      "Player now has 1 Gold Coins.\n", sw.ToString());
             }
         }
@@ -35,9 +35,16 @@ namespace Test
 
                 game.wasCorrectlyAnswered();
 
-                Assert.Equal<string>("Answer was corrent!!!!\n" +
+                Assert.Equal<string>("Answer was correct!!!!\n" +
                                      "Player now has 1 Gold Coins.\n", sw.ToString());
             }
+        }
+
+        [Fact]
+        public void ShowMessageCorrectAnswer()
+        {
+            var game = new Game();
+            Assert.Equal<string>("Answer was correct!!!!", game.getMessageCorrectAnswer());
         }
     }
 }
