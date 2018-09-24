@@ -39,7 +39,7 @@ namespace UglyTrivia
             return "Rock Question " + index;
         }
 
-         
+
         public bool add(String playerName)
         {
             players.Add(playerName);
@@ -70,13 +70,14 @@ namespace UglyTrivia
                     isGettingOutOfPenaltyBox = true;
 
                     _writer.WriteLine(getCurrentPlayer() + " is getting out of the penalty box");
+                    
                     places[currentPlayer] = getCurrentPlaceForCurrentPlayer() + roll;
                     if (places[currentPlayer] > 11) places[currentPlayer] = getCurrentPlaceForCurrentPlayer() - 12;
 
                     _writer.WriteLine(getCurrentPlayer()
                                       + "'s new location is "
                                       + getCurrentPlaceForCurrentPlayer());
-                    _writer.WriteLine("The category is " + currentCategory());
+                    _writer.WriteLine(getCurrentCategoryMessage());
                     askQuestion();
                 }
                 else
@@ -93,10 +94,12 @@ namespace UglyTrivia
                 _writer.WriteLine(getCurrentPlayer()
                                   + "'s new location is "
                                   + getCurrentPlaceForCurrentPlayer());
-                _writer.WriteLine("The category is " + currentCategory());
+                _writer.WriteLine(getCurrentCategoryMessage());
                 askQuestion();
             }
         }
+
+        
 
         private int getCurrentPlaceForCurrentPlayer()
         {
@@ -155,50 +158,44 @@ namespace UglyTrivia
 
         public bool wasCorrectlyAnswered()
         {
-            if (inPenaltyBox[currentPlayer])
-            {
-                if (isGettingOutOfPenaltyBox)
-                {
-                    _writer.WriteLine(getMessageCorrectAnswer());
-                    purses[currentPlayer]++;
-                    _writer.WriteLine(getCurrentPlayer()
-                                      + " now has "
-                                      + purses[currentPlayer]
-                                      + " Gold Coins.");
+      
+            if (isCurrentUserIsOutsideOfPenaltyBox()) 
+                return wasCorrectlyAnsweredForCurrentUserOutsideOfPenaltyBox();
+            currentPlayer++;
+            if (currentPlayer == players.Count) currentPlayer = 0;
+            return true;
 
-                    bool winner = didPlayerWin();
-                    currentPlayer++;
-                    if (currentPlayer == players.Count) currentPlayer = 0;
+        }
 
-                    return winner;
-                }
-                else
-                {
-                    currentPlayer++;
-                    if (currentPlayer == players.Count) currentPlayer = 0;
-                    return true;
-                }
-            }
-            else
-            {
-                _writer.WriteLine(getMessageCorrectAnswer());
-                purses[currentPlayer]++;
-                _writer.WriteLine(getCurrentPlayer()
-                                  + " now has "
-                                  + purses[currentPlayer]
-                                  + " Gold Coins.");
+        private bool isCurrentUserIsOutsideOfPenaltyBox()
+        {
+            return !inPenaltyBox[currentPlayer] || isGettingOutOfPenaltyBox;
+        }
 
-                bool winner = didPlayerWin();
-                currentPlayer++;
-                if (currentPlayer == players.Count) currentPlayer = 0;
+        private bool wasCorrectlyAnsweredForCurrentUserOutsideOfPenaltyBox()
+        {
+            _writer.WriteLine(getMessageCorrectAnswer());
+            purses[currentPlayer]++;
+            _writer.WriteLine(getCurrentPlayer()
+                              + " now has "
+                              + purses[currentPlayer]
+                              + " Gold Coins.");
 
-                return winner;
-            }
+            bool winner = didPlayerWin();
+            currentPlayer++;
+            if (currentPlayer == players.Count) currentPlayer = 0;
+
+            return winner;
         }
 
         public string getMessageCorrectAnswer()
         {
             return "Answer was correct!!!!";
+        }
+        
+        private string getCurrentCategoryMessage()
+        {
+            return "The category is " + currentCategory();
         }
 
         public bool wrongAnswer()
