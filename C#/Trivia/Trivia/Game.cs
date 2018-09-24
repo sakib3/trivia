@@ -7,8 +7,6 @@ namespace UglyTrivia
 {
     public class Game
     {
-
-
         List<string> players = new List<string>();
 
         int[] places = new int[6];
@@ -47,8 +45,6 @@ namespace UglyTrivia
 
         public bool add(String playerName)
         {
-
-
             players.Add(playerName);
             places[howManyPlayers()] = 0;
             purses[howManyPlayers()] = 0;
@@ -80,8 +76,8 @@ namespace UglyTrivia
                     if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
 
                     Console.WriteLine(players[currentPlayer]
-                            + "'s new location is "
-                            + places[currentPlayer]);
+                                      + "'s new location is "
+                                      + places[currentPlayer]);
                     Console.WriteLine("The category is " + currentCategory());
                     askQuestion();
                 }
@@ -90,45 +86,39 @@ namespace UglyTrivia
                     Console.WriteLine(players[currentPlayer] + " is not getting out of the penalty box");
                     isGettingOutOfPenaltyBox = false;
                 }
-
             }
             else
             {
-
                 places[currentPlayer] = places[currentPlayer] + roll;
                 if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
 
                 Console.WriteLine(players[currentPlayer]
-                        + "'s new location is "
-                        + places[currentPlayer]);
+                                  + "'s new location is "
+                                  + places[currentPlayer]);
                 Console.WriteLine("The category is " + currentCategory());
                 askQuestion();
             }
-
         }
 
         private void askQuestion()
         {
             if (currentCategory() == "Pop")
-            {
-                Console.WriteLine(popQuestions.First());
-                popQuestions.RemoveFirst();
-            }
+                DoSomethingForAskingQuestion(popQuestions);
+
             if (currentCategory() == "Science")
-            {
-                Console.WriteLine(scienceQuestions.First());
-                scienceQuestions.RemoveFirst();
-            }
+                DoSomethingForAskingQuestion(scienceQuestions);
+
             if (currentCategory() == "Sports")
-            {
-                Console.WriteLine(sportsQuestions.First());
-                sportsQuestions.RemoveFirst();
-            }
+                DoSomethingForAskingQuestion(sportsQuestions);
+
             if (currentCategory() == "Rock")
-            {
-                Console.WriteLine(rockQuestions.First());
-                rockQuestions.RemoveFirst();
-            }
+                DoSomethingForAskingQuestion(rockQuestions);
+        }
+
+        private void DoSomethingForAskingQuestion(LinkedList<string> questions)
+        {
+            Console.WriteLine(questions.First());
+            questions.RemoveFirst();
         }
 
 
@@ -155,9 +145,9 @@ namespace UglyTrivia
                     Console.WriteLine(getMessageCorrectAnswer());
                     purses[currentPlayer]++;
                     Console.WriteLine(players[currentPlayer]
-                            + " now has "
-                            + purses[currentPlayer]
-                            + " Gold Coins.");
+                                      + " now has "
+                                      + purses[currentPlayer]
+                                      + " Gold Coins.");
 
                     bool winner = didPlayerWin();
                     currentPlayer++;
@@ -171,19 +161,15 @@ namespace UglyTrivia
                     if (currentPlayer == players.Count) currentPlayer = 0;
                     return true;
                 }
-
-
-
             }
             else
             {
-
                 Console.WriteLine(getMessageCorrectAnswer());
                 purses[currentPlayer]++;
                 Console.WriteLine(players[currentPlayer]
-                        + " now has "
-                        + purses[currentPlayer]
-                        + " Gold Coins.");
+                                  + " now has "
+                                  + purses[currentPlayer]
+                                  + " Gold Coins.");
 
                 bool winner = didPlayerWin();
                 currentPlayer++;
@@ -215,5 +201,4 @@ namespace UglyTrivia
             return !(purses[currentPlayer] == 6);
         }
     }
-
 }
