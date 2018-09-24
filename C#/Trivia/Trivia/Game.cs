@@ -60,7 +60,7 @@ namespace UglyTrivia
 
         public void roll(int roll)
         {
-            _writer.WriteLine(players[currentPlayer] + " is the current player");
+            _writer.WriteLine(getCurrentPlayer() + " is the current player");
             _writer.WriteLine("They have rolled a " + roll);
 
             if (inPenaltyBox[currentPlayer])
@@ -69,33 +69,43 @@ namespace UglyTrivia
                 {
                     isGettingOutOfPenaltyBox = true;
 
-                    _writer.WriteLine(players[currentPlayer] + " is getting out of the penalty box");
-                    places[currentPlayer] = places[currentPlayer] + roll;
-                    if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
+                    _writer.WriteLine(getCurrentPlayer() + " is getting out of the penalty box");
+                    places[currentPlayer] = getCurrentPlaceForCurrentPlayer() + roll;
+                    if (places[currentPlayer] > 11) places[currentPlayer] = getCurrentPlaceForCurrentPlayer() - 12;
 
-                    _writer.WriteLine(players[currentPlayer]
+                    _writer.WriteLine(getCurrentPlayer()
                                       + "'s new location is "
-                                      + places[currentPlayer]);
+                                      + getCurrentPlaceForCurrentPlayer());
                     _writer.WriteLine("The category is " + currentCategory());
                     askQuestion();
                 }
                 else
                 {
-                    _writer.WriteLine(players[currentPlayer] + " is not getting out of the penalty box");
+                    _writer.WriteLine(getCurrentPlayer() + " is not getting out of the penalty box");
                     isGettingOutOfPenaltyBox = false;
                 }
             }
             else
             {
-                places[currentPlayer] = places[currentPlayer] + roll;
-                if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
+                places[currentPlayer] = getCurrentPlaceForCurrentPlayer() + roll;
+                if (places[currentPlayer] > 11) places[currentPlayer] = getCurrentPlaceForCurrentPlayer() - 12;
 
-                _writer.WriteLine(players[currentPlayer]
+                _writer.WriteLine(getCurrentPlayer()
                                   + "'s new location is "
-                                  + places[currentPlayer]);
+                                  + getCurrentPlaceForCurrentPlayer());
                 _writer.WriteLine("The category is " + currentCategory());
                 askQuestion();
             }
+        }
+
+        private int getCurrentPlaceForCurrentPlayer()
+        {
+            return places[currentPlayer];
+        }
+
+        private string getCurrentPlayer()
+        {
+            return players[currentPlayer];
         }
 
         private void askQuestion()
@@ -131,15 +141,15 @@ namespace UglyTrivia
 
         private String currentCategory()
         {
-            if (places[currentPlayer] == 0) return "Pop";
-            if (places[currentPlayer] == 4) return "Pop";
-            if (places[currentPlayer] == 8) return "Pop";
-            if (places[currentPlayer] == 1) return "Science";
-            if (places[currentPlayer] == 5) return "Science";
-            if (places[currentPlayer] == 9) return "Science";
-            if (places[currentPlayer] == 2) return "Sports";
-            if (places[currentPlayer] == 6) return "Sports";
-            if (places[currentPlayer] == 10) return "Sports";
+            if (getCurrentPlaceForCurrentPlayer() == 0) return "Pop";
+            if (getCurrentPlaceForCurrentPlayer() == 4) return "Pop";
+            if (getCurrentPlaceForCurrentPlayer() == 8) return "Pop";
+            if (getCurrentPlaceForCurrentPlayer() == 1) return "Science";
+            if (getCurrentPlaceForCurrentPlayer() == 5) return "Science";
+            if (getCurrentPlaceForCurrentPlayer() == 9) return "Science";
+            if (getCurrentPlaceForCurrentPlayer() == 2) return "Sports";
+            if (getCurrentPlaceForCurrentPlayer() == 6) return "Sports";
+            if (getCurrentPlaceForCurrentPlayer() == 10) return "Sports";
             return "Rock";
         }
 
@@ -151,7 +161,7 @@ namespace UglyTrivia
                 {
                     _writer.WriteLine(getMessageCorrectAnswer());
                     purses[currentPlayer]++;
-                    _writer.WriteLine(players[currentPlayer]
+                    _writer.WriteLine(getCurrentPlayer()
                                       + " now has "
                                       + purses[currentPlayer]
                                       + " Gold Coins.");
@@ -173,7 +183,7 @@ namespace UglyTrivia
             {
                 _writer.WriteLine(getMessageCorrectAnswer());
                 purses[currentPlayer]++;
-                _writer.WriteLine(players[currentPlayer]
+                _writer.WriteLine(getCurrentPlayer()
                                   + " now has "
                                   + purses[currentPlayer]
                                   + " Gold Coins.");
@@ -194,7 +204,7 @@ namespace UglyTrivia
         public bool wrongAnswer()
         {
             _writer.WriteLine("Question was incorrectly answered");
-            _writer.WriteLine(players[currentPlayer] + " was sent to the penalty box");
+            _writer.WriteLine(getCurrentPlayer() + " was sent to the penalty box");
             inPenaltyBox[currentPlayer] = true;
 
             currentPlayer++;
